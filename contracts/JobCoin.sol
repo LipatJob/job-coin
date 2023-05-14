@@ -8,16 +8,22 @@ pragma solidity ^0.8.9;
 // able to burn and transfer tokens.
 contract JobCoin {
     mapping(address => uint256) balances;
+    address owner;
 
     event Minted(address account, uint256 amount);
     event Burned(address account, uint256 amount);
     event Transfered(address fromAccount, address toAccount, uint256 amount);
+
+    constructor(){
+        owner = msg.sender;
+    }
 
     function getBalance() public view returns (uint256) {
         return balances[msg.sender];
     }
 
     function mint(uint256 amount) public {
+        require(msg.sender == owner, "Only the owner can mint tokens");
         balances[msg.sender] += amount;
         emit Minted(msg.sender, amount);
     }
