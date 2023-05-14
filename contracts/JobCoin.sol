@@ -22,10 +22,10 @@ contract JobCoin {
         return balances[msg.sender];
     }
 
-    function mint(uint256 amount) public {
+    function mint(address toAccount, uint256 amount) public {
         require(msg.sender == owner, "Only the owner can mint tokens");
-        balances[msg.sender] += amount;
-        emit Minted(msg.sender, amount);
+        balances[toAccount] += amount;
+        emit Minted(toAccount, amount);
     }
 
     function burn(uint256 amount) public {
